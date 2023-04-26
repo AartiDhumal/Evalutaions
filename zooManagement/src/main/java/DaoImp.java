@@ -98,10 +98,12 @@ public class DaoImp {
 
     public static void query1() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+       
+        //Make this code DRY
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Animal> criteriaQuery = criteriaBuilder.createQuery(Animal.class);
-
         Root<Animal> bookRoot = criteriaQuery.from(Animal.class);
+        
         criteriaQuery.select(bookRoot);
         int age=4;
         criteriaQuery.where(criteriaBuilder.gt(bookRoot.<Number>get("age"), age));
@@ -115,9 +117,12 @@ public class DaoImp {
 
     public static void query2() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        
+        //Make this code DRY
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Animal> criteriaQuery = criteriaBuilder.createQuery(Animal.class);
         Root<Animal> bookRoot = criteriaQuery.from(Animal.class);
+        
         criteriaQuery.select(bookRoot);
         criteriaQuery.orderBy(criteriaBuilder.asc(bookRoot.get("type")));
         List<Animal> animalList = entityManager.createQuery(criteriaQuery).getResultList();
